@@ -1,0 +1,31 @@
+<html>
+<head>
+  <link rel='stylesheet' href='css/bootstrap.min.css' type='text/css'>
+  <link rel="stylesheet" href="css/font-awesome.min.css" type='text/css'>
+  <link rel='stylesheet' href='css/style.css' type='text/css'>
+  <script src="jquery-2.1.1.min.js"></script>
+  <script src="popup.js"></script>
+</head>
+<body>
+<div id="no-project" class="hide text-center">
+  Please navigate to the GitHub project of your choice
+</div>
+<div id="found-project" class="hide">
+  <h2 class="text-center">
+    Project <span id="project-name"></span>
+  </h2>
+  <div id="issue" class="hide">
+    <h2 class="text-centerhide">
+      Issue #<span id="issue-number"></span>:
+      <span id="issue-name"></span>
+    </h2>
+    <div class="text-center">
+      <button id="start" class="btn btn-primary">
+        <i class="fa fa-play"></i>
+      </button>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+

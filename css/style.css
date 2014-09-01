@@ -1,0 +1,11 @@
+body {
+  width: 300px;
+}
+
+h2 {
+  font-size: 14px;
+}
+
+#no-project {
+  margin:20px auto;
+}
