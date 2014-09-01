@@ -34,6 +34,7 @@ var background = chrome.runtime.getBackgroundPage(function(background) {
                 background.startTimer();
               });
             } else {
+              $('#no-issue').show();
               $('#issue').hide();
             }
           }
