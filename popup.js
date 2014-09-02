@@ -17,6 +17,16 @@ var background = chrome.runtime.getBackgroundPage(function(background) {
             $('#found-project').show();
             $('#project-name').html(project);
             if (issue) {
+              if (background.status == 1) {
+                $('#start').hide();
+                $('#pause').show();
+                $('#stop').show();
+              } else if (background.status == 2) {
+                $('#start').show();
+                $('#pause').hide();
+                $('#stop').show();
+              }
+
               chrome.runtime.onMessage.addListener(function (evt) {
                 if (evt.type && (evt.type == "ISSUE_NAME")) {
                   $('#issue-name').text(evt.text);
@@ -30,8 +40,23 @@ var background = chrome.runtime.getBackgroundPage(function(background) {
               });
 
               $('#start').click(function() {
-                console.log("CLICK");
                 background.startTimer();
+                $('#start').hide();
+                $('#pause').show();
+                $('#stop').show();
+              });
+
+              $('#pause').click(function() {
+                background.pauseTimer();
+                $('#start').show();
+                $('#pause').hide();
+              });
+
+              $('#stop').click(function() {
+                background.stopTimer();
+                $('#start').show();
+                $('#pause').hide();
+                $('#stop').hide();
               });
             } else {
               $('#no-issue').show();
