@@ -7,7 +7,7 @@ var intervalId;
 // 2: paused
 var status = 0;
 
-function tick() {
+function getElapsedTime() {
   var totalSecs = Math.floor((new Date() - timestamp) / 1000);
   var totalMins = Math.floor(totalSecs / 60);
   var totalHours = Math.floor(totalMins / 60);
@@ -16,9 +16,12 @@ function tick() {
   if (mins < 10) {
     mins = "0" + mins;
   }
-  var badge = hours + ":" + mins;
+  return hours + ":" + mins;
+}
+
+function tick() {
   chrome.browserAction.setBadgeText({
-    text: badge
+    text: getElapsedTime()
   });
 }
 
@@ -42,9 +45,16 @@ function pauseTimer() {
 
 function stopTimer() {
   clearInterval(intervalId);
-  timestamp = null;
   status = 0;
   chrome.browserAction.setBadgeText({
     text: ''
+  });
+
+  chrome.tabs.query({'active': true, 'windowId': chrome.windows.WINDOW_ID_CURRENT}, function(tabs){
+    chrome.tabs.sendMessage(tabs[0].id, {
+      action: 'COMMIT_TIME',
+      time: getElapsedTime()
+    });
+    timestamp = null;
   });
 }
