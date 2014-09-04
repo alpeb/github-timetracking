@@ -22,6 +22,19 @@
       Issue #<span id="issue-number"></span>:
       <span id="issue-name"></span>
     </h2>
+    <div class="text-center" style="margin-bottom:10px">
+        <button class="btn" id="estimate-show">
+          <i class="fa fa-money"></i>
+          &nbsp;Enter estimate
+        </button>
+    </div>
+    <div id="estimate-form" class="hide" style="margin-bottom:10px">
+      <form class="form-inline text-center">
+        <input type="text" name="estimate-hours" value="00" style="width:30px">:
+        <input type="text" name="estimate-minutes" value="00" style="width:30px">
+        <input type="button" id="estimate-submit" class="btn" value="Submit">
+      </form>
+    </div>
     <div class="text-center">
       <button id="start" class="btn btn-primary">
         <i class="fa fa-play"></i>
