@@ -14,5 +14,9 @@ chrome.runtime.onMessage.addListener(function(req) {
       document.querySelector('textarea[name=comment\\[body\\]]').value = 'Estimate: ' + req.time;
       document.querySelector('#partial-new-comment-form-actions button').click()
       break;
+    case 'SHOW_REPORTS':
+      $('body').append(req.content);
+      $('#reports').modal('show');
+      break;
   }
 });

@@ -35,7 +35,20 @@ var background = chrome.runtime.getBackgroundPage(function(background) {
             $('#issue').show();
 
             chrome.tabs.executeScript({
+              file: 'js/jquery-2.1.1.min.js'
+            });
+            chrome.tabs.executeScript({
               file: 'injected.js'
+            });
+            chrome.tabs.executeScript({
+              file: 'js/bootstrap.js'
+            });
+
+            $('#reports-show').click(function() {
+              chrome.tabs.sendMessage(tabs[0].id, {
+                action: 'SHOW_REPORTS',
+                content: $('#reports-wrapper').html()
+              });
             });
 
             $('#estimate-show').click(function() {
