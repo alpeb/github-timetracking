@@ -45,10 +45,21 @@ var background = chrome.runtime.getBackgroundPage(function(background) {
             });
 
             $('#reports-show').click(function() {
-              chrome.tabs.sendMessage(tabs[0].id, {
-                action: 'SHOW_REPORTS',
-                content: $('#reports-wrapper').html()
-              });
+              $.get(
+                'https://github.com/alpeb/trytracks/milestones',
+                function(html) {
+                  html = $(html);
+                  $('.milestone-title-link a', html).each(function() {
+                    $('select[name=milestone]')
+                      .append($('<option>' + $(this).text() + '</option>'));
+                  });
+
+                  chrome.tabs.sendMessage(tabs[0].id, {
+                    action: 'SHOW_REPORTS',
+                    content: $('#reports-wrapper').html()
+                  });
+                }
+              );
             });
 
             $('#estimate-show').click(function() {
