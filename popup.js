@@ -12,9 +12,20 @@ var background = chrome.runtime.getBackgroundPage(function(background) {
         var issue = matches[4];
         
         if (typeof project != 'undefined') {
+          chrome.tabs.executeScript({
+            file: 'js/jquery-2.1.1.min.js'
+          });
+          chrome.tabs.executeScript({
+            file: 'injected.js'
+          });
+          chrome.tabs.executeScript({
+            file: 'js/bootstrap.js'
+          });
+
           $('#no-project').hide();
           $('#found-project').show();
           $('#project-name').html(project);
+
           if (issue) {
             if (background.status == 1) {
               $('#start').hide();
@@ -33,34 +44,6 @@ var background = chrome.runtime.getBackgroundPage(function(background) {
             });
             $('#issue-number').html(issue);
             $('#issue').show();
-
-            chrome.tabs.executeScript({
-              file: 'js/jquery-2.1.1.min.js'
-            });
-            chrome.tabs.executeScript({
-              file: 'injected.js'
-            });
-            chrome.tabs.executeScript({
-              file: 'js/bootstrap.js'
-            });
-
-            $('#reports-show').click(function() {
-              $.get(
-                'https://github.com/alpeb/trytracks/milestones',
-                function(html) {
-                  html = $(html);
-                  $('.milestone-title-link a', html).each(function() {
-                    $('select[name=milestone]')
-                      .append($('<option>' + $(this).text() + '</option>'));
-                  });
-
-                  chrome.tabs.sendMessage(tabs[0].id, {
-                    action: 'SHOW_REPORTS',
-                    content: $('#reports-wrapper').html()
-                  });
-                }
-              );
-            });
 
             $('#estimate-show').click(function() {
               $('#estimate-form').show(400);
@@ -98,6 +81,24 @@ var background = chrome.runtime.getBackgroundPage(function(background) {
             $('#no-issue').show();
             $('#issue').hide();
           }
+
+          $('#reports-show').click(function() {
+            $.get(
+              'https://github.com/' + account + '/' + project + '/milestones',
+              function(html) {
+                html = $(html);
+                $('.milestone-title-link a', html).each(function() {
+                  $('select[name=milestone]')
+                    .append($('<option>' + $(this).text() + '</option>'));
+                });
+
+                chrome.tabs.sendMessage(tabs[0].id, {
+                  action: 'SHOW_REPORTS',
+                  content: $('#reports-wrapper').html()
+                });
+              }
+            );
+          });
         }
       }
      }
