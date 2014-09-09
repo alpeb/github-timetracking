@@ -88,8 +88,9 @@ var background = chrome.runtime.getBackgroundPage(function(background) {
               function(html) {
                 html = $(html);
                 $('.milestone-title-link a', html).each(function() {
+                  var href = $(this).attr('href');
                   $('select[name=milestone]')
-                    .append($('<option>' + $(this).text() + '</option>'));
+                    .append($('<option value="' + href + '">' + $(this).text() + '</option>'));
                 });
 
                 chrome.tabs.sendMessage(tabs[0].id, {
