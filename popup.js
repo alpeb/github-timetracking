@@ -45,19 +45,6 @@ var background = chrome.runtime.getBackgroundPage(function(background) {
             $('#issue-number').html(issue);
             $('#issue').show();
 
-            $('#estimate-show').click(function() {
-              $('#estimate-form').show(400);
-            });
-
-            $('#estimate-submit').click(function() {
-              chrome.tabs.sendMessage(tabs[0].id, {
-                action: 'COMMIT_ESTIMATE',
-                time: $(this).siblings('input[name=estimate-hours]').val() + ':'
-                  + $(this).siblings('input[name=estimate-minutes]').val()
-              });
-              $('#estimate-form').hide();
-            });
-
             $('#start').click(function() {
               background.startTimer();
               $('#start').hide();
