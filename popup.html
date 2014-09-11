@@ -6,40 +6,53 @@
   <script src="js/jquery-2.1.1.min.js"></script>
   <script src="popup.js"></script>
 </head>
-<body>
-<div id="no-project" class="hide text-center">
-  Please navigate to the GitHub project of your choice
+<body style="padding:10px 0">
+
+<div class="text-center" style="margin-bottom:10px">
+  <button class="btn" id="reports-show" disabled>
+    <i class="fa fa-github"></i>
+    &nbsp;Project Report
+  </button>
 </div>
-<div id="found-project" class="hide">
-  <h2 class="text-center">
-    Project <span id="project-name"></span>
-  </h2>
-  <div class="text-center" style="margin-bottom:10px">
-    <button class="btn" id="reports-show">
-      <i class="fa fa-list-alt"></i>
-      &nbsp;Reports
-    </button>
+
+<div id="no-project" class="hide text-center" style="margin:-10px 0 10px; font-style:italic; font-size:10px">
+  Navigate to a GitHub issue to enable reports
+</div>
+
+<div style="position:relative">
+  <label class="checkbox" style="margin-left:43px; font-size:13px">
+    <input type="checkbox" name="pomodoro-intervals"> Pomodoro Intervals
+  </label>
+  <div id="pomodoros" class="hide" style="position:absolute; top:1px; right:60px">
+    <img src="images/pomodoro-18x20.png" style="position:relative; top:-3px">
+    <span>0<span>
   </div>
-  <div id="no-issue" class="hide">
-    Navigate to an issue to start tracking time
-  </div>
-  <div id="issue" class="hide">
-    <h2 class="text-centerhide">
-      Issue #<span id="issue-number"></span>:
-      <span id="issue-name"></span>
-    </h2>
-    <div class="text-center">
-      <button id="start" class="btn btn-primary">
-        <i class="fa fa-play"></i>
-      </button>
-      <button id="pause" class="btn btn-primary hide">
-        <i class="fa fa-pause"></i>
-      </button>
-      <button id="stop" class="btn btn-primary hide">
-        <i class="fa fa-stop"></i>
-      </button>
-    </div>
-  </div>
+</div>
+
+<div class="text-center" style="margin-bottom:10px">
+  <button id="start" class="btn btn-primary">
+    &nbsp;
+    <i class="fa fa-play"></i>
+    &nbsp;
+  </button>
+  <button id="pause" class="btn btn-primary hide">
+    &nbsp;
+    <i class="fa fa-pause"></i>
+    &nbsp;
+  </button>
+  <button id="stop" class="btn btn-primary hide">
+    &nbsp;
+    <i class="fa fa-stop"></i>
+    &nbsp;
+  </button>
+  <button id="record" class="btn btn-primary hide" disabled>
+    <i class="fa fa-github"></i>
+    &nbsp;Record Time
+  </button>
+</div>
+
+<div id="no-issue" class="hide text-center" style="font-style:italic; font-size:10px">
+  Navigate to a GitHub issue to be able to record time spent
 </div>
 
 <div id="reports-wrapper" class="hide">

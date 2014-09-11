@@ -1,7 +1,9 @@
 var background = chrome.runtime.getBackgroundPage(function(background) {
-  chrome.tabs.query({'active': true, 'windowId': chrome.windows.WINDOW_ID_CURRENT}, function(tabs){
+  chrome.tabs.query({'active': true, 'windowId': chrome.windows.WINDOW_ID_CURRENT}, function(tabs) {
       $('#no-project').show();
-      $('#found-project').hide();
+      $('#no-issue').show();
+      $('#reports-show').attr('disabled', 'true');
+      $('#record').attr('disabled', 'true');
 
       var githubRe = /https:\/\/github.com\/([\w]+)\/([\w]+)(\/issues\/(\d+))?/;
       var currentUrl = tabs[0].url;
@@ -23,49 +25,14 @@ var background = chrome.runtime.getBackgroundPage(function(background) {
           });
 
           $('#no-project').hide();
-          $('#found-project').show();
           $('#project-name').html(project);
+          $('#reports-show').removeAttr('disabled');
 
           if (issue) {
-            if (background.status == 1) {
-              $('#start').hide();
-              $('#pause').show();
-              $('#stop').show();
-            } else if (background.status == 2) {
-              $('#start').show();
-              $('#pause').hide();
-              $('#stop').show();
-            }
-
-            chrome.runtime.onMessage.addListener(function (evt) {
-              if (evt.type && (evt.type == "ISSUE_NAME")) {
-                $('#issue-name').text(evt.text);
-              }
-            });
-            $('#issue-number').html(issue);
+            $('#no-issue').hide();
             $('#issue').show();
-
-            $('#start').click(function() {
-              background.startTimer();
-              $('#start').hide();
-              $('#pause').show();
-              $('#stop').show();
-            });
-
-            $('#pause').click(function() {
-              background.pauseTimer();
-              $('#start').show();
-              $('#pause').hide();
-            });
-
-            $('#stop').click(function() {
-              background.stopTimer();
-              $('#start').show();
-              $('#pause').hide();
-              $('#stop').hide();
-            });
+            $('#record').removeAttr('disabled');
           } else {
-            $('#no-issue').show();
             $('#issue').hide();
           }
 
@@ -89,6 +56,53 @@ var background = chrome.runtime.getBackgroundPage(function(background) {
           });
         }
       }
+
+      if (background.status == 1) {
+        $('#start').hide();
+        $('#pause').show();
+        $('#stop').show();
+        $('#record').show();
+      } else if (background.status == 2) {
+        $('#start').show();
+        $('#pause').hide();
+        $('#stop').show();
+        $('#record').show();
+      }
+
+      $('input[name=pomodoro-intervals]').change(function() {
+        background.setPomodoroEnabled(this.checked);
+        $('#pomodoros').show();
+      });
+
+      $('#start').click(function() {
+        background.startTimer();
+        $('#start').hide();
+        $('#pause').show();
+        $('#stop').show();
+        $('#record').show();
+      });
+
+      $('#pause').click(function() {
+        background.pauseTimer();
+        $('#start').show();
+        $('#pause').hide();
+      });
+
+      $('#stop').click(function() {
+        background.stopTimer();
+        $('#start').show();
+        $('#pause').hide();
+        $('#stop').hide();
+        $('#record').hide();
+      });
+
+      $('#record').click(function() {
+        background.recordTime();
+        $('#start').show();
+        $('#pause').hide();
+        $('#stop').hide();
+        $('#record').hide();
+      });
      }
   );
 

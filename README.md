@@ -1,9 +1,9 @@
 github-timetracking
 ===================
 
-Chrome extension to add time tracking, reporting and billing to GitHub issues, with Pomodoro time tracking functionality.
+Chrome extension to add time tracking, reporting and billing to GitHub issues, with Pomodoro time tracking functionality. Also works as a standalone time tracking utility without GitHub.
 
-This works solely localy in your browser, and doesn't depend on any external service.
+It runs localy in your browser, and doesn't depend on any external service.
 
 ### Instalation (to-do)
 
