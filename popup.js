@@ -5,6 +5,14 @@ var background = chrome.runtime.getBackgroundPage(function(background) {
       $('#reports-show').attr('disabled', 'true');
       $('#record').attr('disabled', 'true');
 
+      if (background.pomodoroEnabled) {
+        $('input[name=pomodoro-intervals]').prop('checked', true);
+        $('#pomodoros span').text(background.pomodori || "0");
+        $('#pomodoros').show();
+      } else {
+        $('#pomodoros').hide();
+      }
+
       var githubRe = /https:\/\/github.com\/([\w]+)\/([\w]+)(\/issues\/(\d+))?/;
       var currentUrl = tabs[0].url;
       var matches = currentUrl.match(githubRe);
@@ -57,12 +65,12 @@ var background = chrome.runtime.getBackgroundPage(function(background) {
         }
       }
 
-      if (background.status == 1) {
+      if (background.status == background.STATUS_RUNNING) {
         $('#start').hide();
         $('#pause').show();
         $('#stop').show();
         $('#record').show();
-      } else if (background.status == 2) {
+      } else if (background.status == background.STATUS_PAUSED) {
         $('#start').show();
         $('#pause').hide();
         $('#stop').show();
@@ -70,8 +78,12 @@ var background = chrome.runtime.getBackgroundPage(function(background) {
       }
 
       $('input[name=pomodoro-intervals]').change(function() {
-        background.setPomodoroEnabled(this.checked);
-        $('#pomodoros').show();
+        background.pomodoroEnabled = this.checked;
+        if (this.checked) {
+          $('#pomodoros').show();
+        } else {
+          $('#pomodoros').hide();
+        }
       });
 
       $('#start').click(function() {
@@ -94,6 +106,7 @@ var background = chrome.runtime.getBackgroundPage(function(background) {
         $('#pause').hide();
         $('#stop').hide();
         $('#record').hide();
+        $('#pomodoros span').text("0");
       });
 
       $('#record').click(function() {
