@@ -116,6 +116,7 @@ function pauseTimer() {
 function stopTimer() {
   clearInterval(intervalId);
   status = STATUS_STOPPED;
+  pomodoroStatus = POMODORO_STATUS_WORK;
   pomodori = 0;
   chrome.browserAction.setBadgeText({
     text: ''
