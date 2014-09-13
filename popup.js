@@ -1,3 +1,10 @@
+$(function() {
+  $('#alpeb').click(function() {
+    chrome.tabs.create({url: $(this).attr('href')});
+    return false;
+  });
+});
+
 var background = chrome.runtime.getBackgroundPage(function(background) {
   chrome.tabs.query({'active': true, 'windowId': chrome.windows.WINDOW_ID_CURRENT}, function(tabs) {
       $('#no-project').show();

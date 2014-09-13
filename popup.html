@@ -6,7 +6,11 @@
   <script src="js/jquery-2.1.1.min.js"></script>
   <script src="popup.js"></script>
 </head>
-<body style="padding:10px 0">
+<body style="padding:10px">
+
+<div>
+  <a id="toggle-about" href="#about" data-toggle="modal"><i class="fa fa-info-circle" style="color:blue"></i></a>
+</div>
 
 <div class="text-center" style="margin-bottom:10px">
   <button class="btn" id="reports-show" disabled>
@@ -77,6 +81,21 @@
     </div>
   </div>
 </div>
+
+<div id="about" class="modal hide" style="width:200px; margin-left:-100px">
+  <div class="modal-body text-center">
+    <img src="images/icon-48.png"><br>
+    <div>
+      The GitHub TimeTracking Extension
+    </div>
+    <div style="font-size:10px">
+      by <a id="alpeb" href="http://alpeb.com/?utm_source=github-timetracking&utm_medium=extension&utm_campaign=github-timetracking-about
+">Alejandro Pedraza</a>
+    </div>
+  </div>
+</div>
+
 </body>
+<script src="js/bootstrap.min.js"></script>
 </html>
 
