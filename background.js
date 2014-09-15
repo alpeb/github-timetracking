@@ -127,6 +127,7 @@ function recordTime() {
   if (status > STATUS_STOPPED) {
     stopTimer();
   }
+  var elapsedTime = getElapsedTime();
   chrome.tabs.query({'active': true, 'windowId': chrome.windows.WINDOW_ID_CURRENT}, function(tabs){
     chrome.tabs.sendMessage(tabs[0].id, {
       action: 'COMMIT_TIME',
