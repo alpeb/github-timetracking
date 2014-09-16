@@ -11,7 +11,7 @@ var POMODORO_POMODORI_BEFORE_REST_LONG = 4;
 
 var timestamp;
 var pomodoroTimestamp;
-var pomodoroMins = 0;
+var pomodoroCycleMins = 0;
 var pausedAt = null;
 var pomodoroPausedAt = null;
 var intervalId;
@@ -22,30 +22,37 @@ var status = STATUS_STOPPED;
 
 function getElapsedTime() {
   var totalSecs = Math.floor((new Date() - timestamp) / 1000);
-  var pomodoroTotalSecs = Math.floor((new Date() - pomodoroTimestamp) / 1000);
+  var pomodoroCycleSecs = Math.floor((new Date() - pomodoroTimestamp) / 1000);
   var totalMins = Math.floor(totalSecs / 60);
-  pomodoroMins = Math.floor(pomodoroTotalSecs / 60);
+  pomodoroCycleMins = Math.floor(pomodoroCycleSecs / 60);
   var totalHours = Math.floor(totalMins / 60);
+  var pomodoroTotalHours = Math.floor(pomodoroCycleMins / 60);
   var mins = totalMins % 60;
+  var pomodoroMins = pomodoroCycleMins % 60;
   var hours =  totalHours % 60;
+  var pomodoroHours = pomodoroTotalHours % 60;
   if (mins < 10) {
     mins = "0" + mins;
   }
-  return [hours,  mins];
+  if (pomodoroMins < 10) {
+    pomodoroMins = "0" + pomodoroMins;
+  }
+  return [hours, mins, pomodoroHours, pomodoroMins];
 }
 
 function tick() {
   var elapsedTime = getElapsedTime();
-  chrome.browserAction.setBadgeText({
-    text: elapsedTime[0] + ':' + elapsedTime[1]
-  });
 
   if (pomodoroEnabled) {
     switch (pomodoroStatus) {
       case POMODORO_STATUS_WORK:
-        if (pomodoroMins >= POMODORO_WORK) {
+        chrome.browserAction.setBadgeText({
+          text: elapsedTime[0] + ':' + elapsedTime[1]
+        });
+
+        if (pomodoroCycleMins >= POMODORO_WORK) {
           pomodoroTimestamp = new Date();
-          pomodoroMins = 0;
+          pomodoroCycleMins = 0;
           pomodori++;
           if (pomodori % POMODORO_POMODORI_BEFORE_REST_LONG == 0) {
             pomodoroStatus = POMODORO_STATUS_REST_LONG;
@@ -66,11 +73,19 @@ function tick() {
           audio.play();
         }
         break;
+
       case POMODORO_STATUS_REST_SHORT:
       case POMODORO_STATUS_REST_LONG:
-        if (pomodoroMins >= (pomodoroStatus == POMODORO_STATUS_REST_SHORT? POMODORO_REST_SHORT : POMODORO_REST_LONG)) {
+        chrome.browserAction.setBadgeText({
+          text: pomodoroStatus == POMODORO_STATUS_REST_SHORT? elapsedTime[0] + ':' + elapsedTime[1] : elapsedTime[2] + ':' + elapsedTime[3]
+        });
+
+        if (pomodoroCycleMins >= (pomodoroStatus == POMODORO_STATUS_REST_SHORT? POMODORO_REST_SHORT : POMODORO_REST_LONG)) {
           pomodoroTimestamp = new Date();
-          pomodoroMins = 0;
+          pomodoroCycleMins = 0;
+          if (pomodoroStatus == POMODORO_STATUS_REST_LONG) {
+            timestamp = new Date(timestamp.valueOf() + (POMODORO_REST_LONG * 60 * 1000));
+          }
           pomodoroStatus = POMODORO_STATUS_WORK;
 
           chrome.browserAction.setBadgeBackgroundColor({
@@ -81,6 +96,10 @@ function tick() {
         }
         break;
     }
+  } else {
+    chrome.browserAction.setBadgeText({
+      text: elapsedTime[0] + ':' + elapsedTime[1]
+    });
   }
 }
 
