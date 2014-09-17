@@ -1,33 +1,36 @@
 github-timetracking
 ===================
 
-Chrome extension to add time tracking, reporting and billing to GitHub issues, with Pomodoro time tracking functionality. Also works as a standalone time tracking utility without GitHub.
+Chrome extension to add time tracking, reporting and billing (to do) to GitHub issues, with optional Pomodoro time tracking functionality. Also works as a standalone time tracking utility without GitHub.
 
 It runs localy in your browser, and doesn't depend on any external service.
 
-### Instalation (to-do)
+### Instalation
 
-Go to the Chrome Web Store and install the extension. Once installed, you'll see a couple of new icons to the right of the address bar:
-  - Time tracking (start/pause/stop): only actionable when viewing a GitHub issue
-  - Other ops:
-    - View report for current project (only actionable when browsing a GitHub project)
-    - Settings
+Production version is available from the Chrome Web Store at [pending].
 
-### Time Tracking (to-do)
+To install the development version:
 
-To start working on an issue, press the Play button. You can pause to stop the timer. To signal you're done with the issue, press Stop. A new comment will be added, which you can also set through a commit message.
+- Clone this repo
+- Go to the extension page in Chrome
+- Tick `Developer mode`
+- Click `Load unpacked extension`
+- Point to the directory where you cloned this repo
+
+
+### Time Tracking
+
+To start the timer click on the extension icon and press the play button. You can pause to stop the timer. To record the time spent in a Github issue, navigate to the issue in question and press `Record Time`. A new comment will be added to the issue, that will be parsed by the reports (see below).
 
 #### Pomodoro functionality
-The [Pomodoro Technique] (http://pomodorotechnique.com/) is a time management method to improve productivity and prevent burnout. I highly recommend it.
+The [Pomodoro Technique] (http://pomodorotechnique.com/) is a time management method to improve productivity and prevent burnout. Its principle is very simple: you work 25 mins and then take a rest for 5 mins. That's one pomodoro. After every 4 pomodori, take a long break of 30 mins instead of 5 mins.
 
-Before starting the timer, you can tick the `pomodoro intervals` option to have time be split into pomodoros (or should I say *pomodori*): 25 mins of work + 5 mins break. After 2 hours (that's 4 pomodori), the regular red timer will be paused and a new blue one will start tracking a 30 mins break. When finished, the regular red timer will resume (you can resume work earlier if you want, by pressing the `Resume Work` button). You will hear a distinctive alarm at the end of all of these intervals.
+To use it here, just tick `pomodoro intervals` before starting the timer. After 25 mins you'll see an alert and the counter will turn dark orange, counting the 5 mins short break. After the short break is finished another alert will sound and the red timer will resume. At the end of the 4th pomodori you'll see an alert and a green timer will start tracking the long break. Finally, after the long break is finished, the red timer will resume.
 
-Note that can disable the pomodoro intervals at any moment and return to regular time tracking by unticking the `pomodoro intervals` option.
+Note that the red timer will track only the billable time which includes the 25 mins of work time plus the 5 mins short breaks, not the long breaks. So after the long break finishes, the red timer will continue counting where it left off before the long break started.
 
-### Reports (to-do)
+Also note that you can disable the pomodoro intervals at any moment and return to regular time tracking by unticking the `pomodoro intervals` option.
 
-To generate a report, the extension parses all issue and commit comments and shows estimates vs real times, with totals per milestone and per user.
+### Reports
 
-### Settings (to-do)
-
-Ability to set rate per hour for each project
+To generate a report, navigate first to the desired project in GitHub. Then click on `Project Report`. In the report pop-up select a milestone. You'll see the aggregated times per issue, and a grand total for the milestone.
