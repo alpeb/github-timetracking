@@ -84,7 +84,7 @@ function tick() {
           pomodoroTimestamp = new Date();
           pomodoroCycleMins = 0;
           if (pomodoroStatus == POMODORO_STATUS_REST_LONG) {
-            timestamp = new Date(timestamp.valueOf() + (POMODORO_REST_LONG * 60 * 1000));
+            timestamp = new Date(timestamp.valueOf() + ((POMODORO_REST_LONG  - POMODORO_REST_SHORT)* 60 * 1000));
           }
           pomodoroStatus = POMODORO_STATUS_WORK;
 
