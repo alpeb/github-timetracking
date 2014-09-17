@@ -68,7 +68,7 @@ function tick() {
               alert("Take a *SHORT* break! (" + POMODORO_REST_SHORT + " mins)");
             }, 500);
             chrome.browserAction.setBadgeBackgroundColor({
-              color: '#cc5200'
+              color: '#ff1493'
             });
           }
           var audio = new Audio('sounds/short-break.mp3');

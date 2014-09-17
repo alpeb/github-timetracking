@@ -25,7 +25,7 @@ To start the timer click on the extension icon and press the play button. You ca
 #### Pomodoro functionality
 The [Pomodoro Technique] (http://pomodorotechnique.com/) is a time management method to improve productivity and prevent burnout. Its principle is very simple: you work 25 mins and then take a rest for 5 mins. That's one pomodoro. After every 4 pomodori, take a long break of 30 mins instead of 5 mins.
 
-To use it here, just tick `pomodoro intervals` before starting the timer. After 25 mins you'll see an alert and the counter will turn dark orange, counting the 5 mins short break. After the short break is finished another alert will sound and the red timer will resume. At the end of the 4th pomodori you'll see an alert and a green timer will start tracking the long break. Finally, after the long break is finished, the red timer will resume.
+To use it here, just tick `pomodoro intervals` before starting the timer. After 25 mins you'll see an alert and the counter will turn pink, counting the 5 mins short break. After the short break is finished another alert will sound and the red timer will resume. At the end of the 4th pomodori you'll see an alert and a green timer will start tracking the long break. Finally, after the long break is finished, the red timer will resume.
 
 Note that the red timer will track only the billable time which includes the 25 mins of work time plus the 5 mins short breaks, not the long breaks. So after the long break finishes, the red timer will continue counting where it left off before the long break started.
 
