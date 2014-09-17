@@ -57,18 +57,20 @@ function tick() {
           if (pomodori % POMODORO_POMODORI_BEFORE_REST_LONG == 0) {
             pomodoroStatus = POMODORO_STATUS_REST_LONG;
             setTimeout(function() {
-              alert("Take a LONG break! (" + POMODORO_REST_LONG + " mins)");
+              alert("Take a *LONG* break! (" + POMODORO_REST_LONG + " mins)");
             }, 500);
+            chrome.browserAction.setBadgeBackgroundColor({
+              color: '#006600'
+            });
           } else {
             pomodoroStatus = POMODORO_STATUS_REST_SHORT;
             setTimeout(function() {
-              alert("Take a SHORT break! (" + POMODORO_REST_SHORT + " mins)");
+              alert("Take a *SHORT* break! (" + POMODORO_REST_SHORT + " mins)");
             }, 500);
+            chrome.browserAction.setBadgeBackgroundColor({
+              color: '#cc5200'
+            });
           }
-
-          chrome.browserAction.setBadgeBackgroundColor({
-            color: '#006600'
-          });
           var audio = new Audio('sounds/short-break.mp3');
           audio.play();
         }
@@ -77,7 +79,7 @@ function tick() {
       case POMODORO_STATUS_REST_SHORT:
       case POMODORO_STATUS_REST_LONG:
         chrome.browserAction.setBadgeText({
-          text: pomodoroStatus == POMODORO_STATUS_REST_SHORT? elapsedTime[0] + ':' + elapsedTime[1] : elapsedTime[2] + ':' + elapsedTime[3]
+          text: pomodoroStatus == POMODORO_STATUS_WORK? elapsedTime[0] + ':' + elapsedTime[1] : elapsedTime[2] + ':' + elapsedTime[3]
         });
 
         if (pomodoroCycleMins >= (pomodoroStatus == POMODORO_STATUS_REST_SHORT? POMODORO_REST_SHORT : POMODORO_REST_LONG)) {
