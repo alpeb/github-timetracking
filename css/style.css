@@ -9,3 +9,19 @@ h2 {
 #no-project {
   margin:20px auto;
 }
+
+#help .modal-body {
+  position: relative;
+  height: 135px;
+  font-size: 10px;
+}
+
+#help .modal-body h1 {
+  margin: 0;
+  font-size: 13px;
+}
+
+#help .modal-body h2 {
+  margin: 0;
+  font-size: 10px;
+}

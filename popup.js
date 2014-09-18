@@ -1,5 +1,5 @@
 $(function() {
-  $('#alpeb').click(function() {
+  $('a.link').click(function() {
     chrome.tabs.create({url: $(this).attr('href')});
     return false;
   });
