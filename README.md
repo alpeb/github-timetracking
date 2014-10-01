@@ -7,7 +7,7 @@ It runs localy in your browser, and doesn't depend on any external service.
 
 ### Instalation
 
-Production version is available from the Chrome Web Store at [pending].
+The production version is available from the Chrome Web Store at [pending].
 
 To install the development version:
 

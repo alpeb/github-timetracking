@@ -56,6 +56,7 @@ var background = chrome.runtime.getBackgroundPage(function(background) {
               'https://github.com/' + account + '/' + project + '/milestones',
               function(html) {
                 html = $(html);
+                $('select[name=milestone] option:not(:first)').remove();
                 $('.milestone-title-link a', html).each(function() {
                   var href = $(this).attr('href');
                   $('select[name=milestone]')
