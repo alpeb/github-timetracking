@@ -74,8 +74,22 @@
             <option value="0">-- Select Milestone --</option>
           </select>
         </form>
-        <div class="time-items">
-        </div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Issue</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody class="time-items ">
+          </tbody>
+          <tfoot>
+            <tr>
+              <td align="right" style="font-weight:bold">Total:</td>
+              <td class="milestoneTotal text-right" style="font-weight:bold"></td>
+            </tr>
+          </tfoot>
+        </table>
       </div>
       <div class="modal-footer">
         <a href="#" class="btn" data-dismiss="modal">Close</a>

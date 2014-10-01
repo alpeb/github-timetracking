@@ -15,6 +15,7 @@ chrome.runtime.onMessage.addListener(function(req) {
           function(html) {
             html = $(html);
             $('.time-items').html('');
+            var milestoneTotalHours = milestoneTotalMinutes = 0;
             $('a.issue-title-link', html).each(function() {
               var issueTitle = $(this).text();
               var issueHref = $(this).attr('href');
@@ -33,10 +34,19 @@ chrome.runtime.onMessage.addListener(function(req) {
                     });
                     totalHours += Math.floor(totalMinutes / 60);
                     totalMinutes = totalMinutes % 60;
+                    milestoneTotalHours += totalHours;
+                    milestoneTotalMinutes = parseInt(milestoneTotalMinutes) + totalMinutes;
+                    console.log("here: ", milestoneTotalMinutes);
                     if (totalMinutes < 10) {
                       totalMinutes = "0" + totalMinutes;
                     }
-                    $('#reports .time-items').append('<div>' + issueTitle + ': ' + totalHours + ':' + totalMinutes + '</div>');
+                    $('#reports .time-items').append('<tr><td>' + issueTitle + '</td><td style="width:100px" class="text-right">' + totalHours + ':' + totalMinutes + '</td></tr>');
+                    milestoneTotalHours += Math.floor(milestoneTotalMinutes / 60);
+                    milestoneTotalMinutes = milestoneTotalMinutes % 60;
+                    if (milestoneTotalMinutes < 10) {
+                      milestoneTotalMinutes = "0" + milestoneTotalMinutes;
+                    }
+                    $('.milestoneTotal').text(milestoneTotalHours + ':' + milestoneTotalMinutes);
                   }
                 }
               );
