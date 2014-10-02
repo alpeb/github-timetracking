@@ -15,6 +15,7 @@ chrome.runtime.onMessage.addListener(function(req) {
           function(html) {
             html = $(html);
             $('.time-items').html('');
+            $('.milestoneTotal').text('');
             var milestoneTotalHours = milestoneTotalMinutes = 0;
             $('a.issue-title-link', html).each(function() {
               var issueTitle = $(this).text();
