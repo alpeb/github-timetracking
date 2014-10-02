@@ -8,6 +8,7 @@ chrome.runtime.onMessage.addListener(function(req) {
       $('.report').remove();
       $('body').append(req.content);
       $('#reports').modal('show');
+      var milestoneTotalHours = milestoneTotalMinutes = 0;
       $('select[name=milestone]').change(function() {
         var milestoneHref = $(this).val();
         $.get(
@@ -16,7 +17,7 @@ chrome.runtime.onMessage.addListener(function(req) {
             html = $(html);
             $('.time-items').html('');
             $('.milestoneTotal').text('');
-            var milestoneTotalHours = milestoneTotalMinutes = 0;
+            milestoneTotalHours = milestoneTotalMinutes = 0;
             $('a.issue-title-link', html).each(function() {
               var issueTitle = $(this).text();
               var issueHref = $(this).attr('href');
@@ -37,7 +38,6 @@ chrome.runtime.onMessage.addListener(function(req) {
                     totalMinutes = totalMinutes % 60;
                     milestoneTotalHours += totalHours;
                     milestoneTotalMinutes = parseInt(milestoneTotalMinutes) + totalMinutes;
-                    console.log("here: ", milestoneTotalMinutes);
                     if (totalMinutes < 10) {
                       totalMinutes = "0" + totalMinutes;
                     }
@@ -55,6 +55,23 @@ chrome.runtime.onMessage.addListener(function(req) {
           }
         );
       });
+
+      $('#sendBill').click(function() {
+        var rate = window.prompt('Please enter hourly rate for this project:');
+        var recipient = window.prompt('Please enter email recipient:');
+        var subject = "Invoice for project " + req.project;
+        var amount = milestoneTotalHours * rate + milestoneTotalMinutes / 60 * rate;
+        $('#reports .milestoneAmount').text("$" + parseFloat(amount).toFixed(2));
+        var table = $('<table />').append($('#reports table').clone());
+        var body = "Reference milestone: " + $('select[name=milestone] option:selected').text()
+          + "<br><br>\r\n"
+          + table.html();
+
+        console.log('subject: ', subject);
+        console.log('body: ', body);
+        window.location.href = 'mailto:' + recipient + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      });
+
       break;
   }
 });

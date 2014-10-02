@@ -65,6 +65,7 @@ var background = chrome.runtime.getBackgroundPage(function(background) {
 
                 chrome.tabs.sendMessage(tabs[0].id, {
                   action: 'SHOW_REPORTS',
+                  project: project,
                   content: $('#reports-wrapper').html()
                 });
               }
