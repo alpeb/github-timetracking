@@ -1,7 +1,7 @@
 github-timetracking
 ===================
 
-Chrome extension to add time tracking, reporting and billing (to do) to GitHub issues, with optional Pomodoro time tracking functionality. Also works as a standalone time tracking utility without GitHub.
+Chrome extension to add time tracking, reporting and billing to GitHub issues, with optional Pomodoro time tracking functionality. Also works as a standalone time tracking utility without GitHub.
 
 It runs localy in your browser, and doesn't depend on any external service.
 
@@ -33,4 +33,4 @@ Also note that you can disable the pomodoro intervals at any moment and return t
 
 ### Reports
 
-To generate a report, navigate first to the desired project in GitHub. Then click on `Project Report`. In the report pop-up select a milestone. You'll see the aggregated times per issue, and a grand total for the milestone.
+To generate a report, navigate first to the desired project in GitHub. Then click on `Project Report`. In the report pop-up select a milestone. You'll see the aggregated times per issue, and a grand total for the milestone. Click on `Send Bill` to create an email draft listing the issues and calculate the total amount due.
