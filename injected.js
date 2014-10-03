@@ -62,13 +62,20 @@ chrome.runtime.onMessage.addListener(function(req) {
         var subject = "Invoice for project " + req.project;
         var amount = milestoneTotalHours * rate + milestoneTotalMinutes / 60 * rate;
         $('#reports .milestoneAmount').text("$" + parseFloat(amount).toFixed(2));
-        var table = $('<table />').append($('#reports table').clone());
-        var body = "Reference milestone: " + $('select[name=milestone] option:selected').text()
-          + "<br><br>\r\n"
-          + table.html();
 
-        console.log('subject: ', subject);
-        console.log('body: ', body);
+        var body = '';
+        $('#reports tbody tr').each(function() {
+          body += 'Task: "' + $('td:first', this).text().trim() + '"\r\n'
+               + 'Time spent: ' + $('td:nth-child(2)', this).text().trim() + "\r\n\r\n";
+        });
+
+        body += '\r\nTotal Time: ' + $('#reports .milestoneTotal').text().trim();
+        body += '\r\n\r\nAmount Due: ' + $('#reports .milestoneAmount').text().trim();
+
+        body = "Reference milestone: " + $('select[name=milestone] option:selected').text()
+          + "\r\n\r\n"
+          + body;
+
         window.location.href = 'mailto:' + recipient + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
       });
 
