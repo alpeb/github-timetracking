@@ -11,8 +11,10 @@ chrome.runtime.onMessage.addListener(function(req) {
       var milestoneTotalHours = milestoneTotalMinutes = 0;
       $('select[name=milestone]').change(function() {
         var milestoneHref = $(this).val();
+        var parts = milestoneHref.split('/');
+        var milestoneLabel = parts[parts.length - 1];
         $.get(
-          'https://github.com' + milestoneHref,
+          'https://github.com/' + parts[1] + '/' + parts[2] + '/issues?q=milestone%3A' + encodeURIComponent(milestoneLabel),
           function(html) {
             html = $(html);
             $('.time-items').html('');
