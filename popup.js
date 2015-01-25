@@ -86,6 +86,20 @@ var background = chrome.runtime.getBackgroundPage(function(background) {
         $('#record').show();
       }
 
+      chrome.storage.sync.get({
+        pomodoroDuration: 25,
+        shortBreakDuration: 5,
+        longBreaks: true,
+        longBreaksEvery: 4,
+        longBreakDuration: 30
+      }, function(items) {
+        background.optionsPomodoroDuration = items.pomodoroDuration;
+        background.optionsShortBreakDuration = items.shortBreakDuration;
+        background.optionsLongBreaks = items.longBreaks;
+        background.optionsLongBreaksEvery = items.longBreaksEvery;
+        background.optionsLongBreakDuration = items.longBreakDuration;
+      });
+
       $('input[name=pomodoro-intervals]').change(function() {
         background.pomodoroEnabled = this.checked;
         if (this.checked) {

@@ -7,7 +7,7 @@ It runs localy in your browser, and doesn't depend on any external service.
 
 ### Instalation
 
-The production version is available from the Chrome Web Store (search for Github timetracking)
+The production version is available from the Chrome Web Store at https://chrome.google.com/webstore/detail/github-timetracking/hbbbjnmncnckcoohigacfaifaiplacmo
 
 To install the development version:
 
@@ -34,3 +34,6 @@ Also note that you can disable the pomodoro intervals at any moment and return t
 ### Reports
 
 To generate a report, navigate first to the desired project in GitHub. Then click on `Project Report`. In the report pop-up select a milestone. You'll see the aggregated times per issue, and a grand total for the milestone. Click on `Send Bill` to create an email draft listing the issues and calculate the total amount due.
+
+### Options
+You can modify all the pomodoro durations by going into Chrome's extension page, and clicking on `options` in the GitHub TimeTracking section.

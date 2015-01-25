@@ -1,0 +1,2 @@
+version 1.1.0:
+- Added options to be able to change default pomodoro times.

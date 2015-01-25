@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GitHub TimeTracking Options</title>
+  <style>
+    body {
+      padding: 10px;
+    }
+
+    li {
+      margin: 10px 0;
+    }
+
+    input[type=text] {
+      width: 30px;
+    }
+  </style>
+</head>
+
+  <body>
+    <h2>Pomodoro Settings</h2>
+    <form name="settings">
+      <ul>
+        <li>
+          Pomodoro work duration:
+          <input type="text" name="pomodoroDuration" value="25"> minutes
+        </li>
+        <li>
+          Short breaks duration:
+          <input type="text" name="shortBreakDuration" value="5"> minutes
+        </li>
+        <li>
+          Enable long breaks:
+          <input type="checkbox" name="longBreaks" checked>
+        </li>
+        <li id="liLongBreaksEvery" style="display:none">
+          Long breaks every <input type="text" name="longBreaksEvery" value="4"> pomodori
+        </li>
+        <li id="liLongBreaksDuration" style="display:none">
+          Long breaks duration:
+          <input type="text" name="longBreakDuration" value="30"> minutes
+        </li>
+      </ul>
+
+      <div id="status" style="text-align:center; font-weight:bold; color:red"></div>
+      <div style="text-align:right">
+        <button id="save">Save</button>
+      </div>
+    </form>
+    <script src="options.js"></script>
+  </body>
+</html>

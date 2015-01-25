@@ -4,10 +4,12 @@ var STATUS_PAUSED = 2;
 var POMODORO_STATUS_WORK = 0;
 var POMODORO_STATUS_REST_SHORT = 1;
 var POMODORO_STATUS_REST_LONG = 2;
-var POMODORO_WORK = 25;
-var POMODORO_REST_SHORT = 5;
-var POMODORO_REST_LONG = 30;
-var POMODORO_POMODORI_BEFORE_REST_LONG = 4;
+
+var optionsPomodoroDuration = 25;
+var optionsShortBreakDuration = 5;
+var optionsLongBreaks = true;
+var optionsLongBreaksEvery = 4;
+var optionsLongBreakDuration = 30;
 
 var timestamp;
 var pomodoroTimestamp;
@@ -50,14 +52,14 @@ function tick() {
           text: elapsedTime[0] + ':' + elapsedTime[1]
         });
 
-        if (pomodoroCycleMins >= POMODORO_WORK) {
+        if (pomodoroCycleMins >= optionsPomodoroDuration) {
           pomodoroTimestamp = new Date();
           pomodoroCycleMins = 0;
           pomodori++;
-          if (pomodori % POMODORO_POMODORI_BEFORE_REST_LONG == 0) {
+          if (optionsLongBreaks && (pomodori % optionsLongBreaksEvery == 0)) {
             pomodoroStatus = POMODORO_STATUS_REST_LONG;
             setTimeout(function() {
-              alert("Take a *LONG* break! (" + POMODORO_REST_LONG + " mins)");
+              alert("Take a *LONG* break! (" + optionsLongBreakDuration + " mins)");
             }, 500);
             chrome.browserAction.setBadgeBackgroundColor({
               color: '#006600'
@@ -65,7 +67,7 @@ function tick() {
           } else {
             pomodoroStatus = POMODORO_STATUS_REST_SHORT;
             setTimeout(function() {
-              alert("Take a *SHORT* break! (" + POMODORO_REST_SHORT + " mins)");
+              alert("Take a *SHORT* break! (" + optionsShortBreakDuration + " mins)");
             }, 500);
             chrome.browserAction.setBadgeBackgroundColor({
               color: '#ff1493'
@@ -82,11 +84,11 @@ function tick() {
           text: pomodoroStatus == POMODORO_STATUS_WORK? elapsedTime[0] + ':' + elapsedTime[1] : elapsedTime[2] + ':' + elapsedTime[3]
         });
 
-        if (pomodoroCycleMins >= (pomodoroStatus == POMODORO_STATUS_REST_SHORT? POMODORO_REST_SHORT : POMODORO_REST_LONG)) {
+        if (pomodoroCycleMins >= (pomodoroStatus == POMODORO_STATUS_REST_SHORT? optionsShortBreakDuration : optionsLongBreakDuration)) {
           pomodoroTimestamp = new Date();
           pomodoroCycleMins = 0;
           if (pomodoroStatus == POMODORO_STATUS_REST_LONG) {
-            timestamp = new Date(timestamp.valueOf() + ((POMODORO_REST_LONG  - POMODORO_REST_SHORT)* 60 * 1000));
+            timestamp = new Date(timestamp.valueOf() + ((optionsLongBreakDuration  - optionsShortBreakDuration)* 60 * 1000));
           }
           pomodoroStatus = POMODORO_STATUS_WORK;
 
