@@ -1,2 +1,7 @@
+version 2.0.0:
+- Improved notifications.
+- Added ability to postpone or completely skip breaks.
+- Fixed: couldn't record time in github projects having dashes in their names.
+
 version 1.1.0:
 - Added options to be able to change default pomodoro times.

@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "GitHub TimeTracking",
   "short_name": "TimeTracking",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "Add time tracking and reporting to GitHub issues",
   "author": "Alejandro Pedraza",
   "homepage_url": "https://github.com/alpeb/github-timetracking",
@@ -15,7 +15,7 @@
   "minimum_chrome_version": "40",
   "offline_enabled": true,
   "permissions" : [
-    "tabs", "https://github.com/*", "storage"
+    "tabs", "https://github.com/*", "storage", "notifications"
   ],
   "background": {
     "scripts": ["background.js"],

@@ -20,7 +20,7 @@ var background = chrome.runtime.getBackgroundPage(function(background) {
         $('#pomodoros').hide();
       }
 
-      var githubRe = /https:\/\/github.com\/([\w]+)\/([\w]+)(\/issues\/(\d+))?/;
+      var githubRe = /https:\/\/github.com\/([\w-]+)\/([\w-]+)(\/issues\/(\d+))?/;
       var currentUrl = tabs[0].url;
       var matches = currentUrl.match(githubRe);
       if (matches) {
