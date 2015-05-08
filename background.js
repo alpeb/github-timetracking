@@ -72,6 +72,7 @@ function tick() {
 }
 
 function startTimer() {
+  waitingAnswer = false;
   if (status == STATUS_PAUSED) {
     var pauseDuration = new Date() - pausedAt;
     initialTimestamp = datePlusMillis(initialTimestamp, pauseDuration);
